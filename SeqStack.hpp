@@ -27,8 +27,30 @@ SeqStack<T>::SeqStack(){
 
 template <typename T>
 void SeqStack<T>::Push(T x){
-    if(indexTop == STACK_SIZE - 1) throw "Stack overflow.(SeqStack<T>::Push(T x))";
+    if(indexTop == STACK_SIZE - 1) throw "Stack overflow.(void SeqStack<T>::Push(T x))";
     data[++indexTop] = x;
+}
+
+template <typename T>
+T SeqStack<T>::Pop(){
+    T rtn;
+    if(indexTop == -1) throw "Stack underflow.( T SeqStack<T>::Pop())";
+    rtn = data[indexTop--];
+    return rtn;
+}
+
+template <typename T>
+T SeqStack<T>::GetTop(){
+    T rtn;
+    if(indexTop == -1) throw "Stack underflow.( T SeqStack<T>::Pop())";
+    rtn = data[indexTop];
+    return rtn;
+}
+
+template <typename T>
+bool SeqStack<T>::isEmpty(){
+    if(indexTop == -1) return true;
+    else return false;
 }
 
 template <typename DT>

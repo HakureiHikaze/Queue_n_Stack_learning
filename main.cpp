@@ -7,6 +7,6 @@ int main() {
     for(int i = 0; i<10; i++){
         test.Push(a[i]);
     }
-    std::cout<<test<<std::endl;
+    std::cout<<test.Pop()<<test<<std::endl;
     return 0;
 }
