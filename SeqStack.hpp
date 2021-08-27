@@ -42,7 +42,7 @@ T SeqStack<T>::Pop(){
 template <typename T>
 T SeqStack<T>::GetTop(){
     T rtn;
-    if(indexTop == -1) throw "Stack underflow.( T SeqStack<T>::Pop())";
+    if(indexTop == -1) throw "Stack underflow.( T SeqStack<T>::GetPop())";
     rtn = data[indexTop];
     return rtn;
 }
