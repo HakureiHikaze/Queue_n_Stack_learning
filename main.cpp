@@ -1,15 +1,17 @@
 #include <iostream>
 #include "SeqStack.hpp"
+#include "SeqQueue.hpp"
 #include "SinglyLinkedStack.hpp"
 
 int main() {
-    SeqStack<int> test = SeqStack<int>();
-    SinglyLinkedStack<int> test1 = SinglyLinkedStack<int>();
     int a[10] = {0,1,2,3,4,5,6,7,8,9};
+    SeqQueue<int> test3 = SeqQueue<int>();
     for(int i : a){
-        test1.Push(i);
+        test3.Enqueue(i);
     }
-    test1.Push(5);
-    std::cout<<test1<<std::endl;
+    std::cout<<test3.Dequeue()<<std::endl;
+    std::cout<<test3.Dequeue()<<std::endl;
+    test3.Enqueue(16);
+    std::cout<<test3<<std::endl;
     return 0;
 }
