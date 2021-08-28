@@ -8,7 +8,7 @@ template <typename T>
 class SeqStack{
 public:
     SeqStack();
-    ~SeqStack(){}
+    ~SeqStack() = default;
     void Push(T x);
     T Pop();
     T GetTop();
