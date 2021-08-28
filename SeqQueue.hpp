@@ -36,6 +36,7 @@ void SeqQueue<T>::Enqueue(T _data) {
 
 template<typename T>
 T SeqQueue<T>::Dequeue() {
+    if(rear == head) throw "Queue underflow. (T SeqQueue<T>::Dequeue())";
     T rtn = (*this)[head++];
     return rtn;
 }
