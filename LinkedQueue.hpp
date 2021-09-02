@@ -25,11 +25,10 @@ LinkedQueue<T>::LinkedQueue() {
 template<typename T>
 LinkedQueue<T>::~LinkedQueue() {
     Node<T>* p = head->pNext;
-    do {
-        delete head;
-        head = p;
-        p = p->pNext;
-    } while (rear != head);
+    for(;!(this->isEmpty());){
+        this->Dequeue();
+    }
+    delete head;
 }
 
 template<typename T>
@@ -42,11 +41,12 @@ void LinkedQueue<T>::Enqueue(T data) {
 
 template<typename T>
 T LinkedQueue<T>::Dequeue() {
-    Node<T>* p = head->pNext;
-    T rtn = p->data;
-    head->pNext = p->pNext;
-    delete p;
-    return rtn;
+        Node<T>* p = head->pNext;
+        T rtn = p->data;
+        head->pNext = p->pNext;
+        if(head->pNext == nullptr) rear = head;
+        delete p;
+        return rtn;
 }
 
 template<typename T>

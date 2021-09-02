@@ -6,7 +6,8 @@
 #include "Expression.hpp"
 
 int main() {
-    Expression a = Expression("768+sin(7)+tg(22.5)*keng(hsh(2)^hh(8))-0.35sin(22)");
+    Expression a = Expression("2^1023");
     a.testWrite();
+    std::cout<<"\nResault:\t"<<a.calculate()<<std::endl;
     return 0;
 }

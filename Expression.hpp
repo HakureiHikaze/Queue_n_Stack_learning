@@ -12,16 +12,17 @@
 
 class Expression {
 public:
-    Expression();
-    Expression(String);
-    virtual ~Expression();
+    explicit Expression(String);
     void testWrite();
+    double calculate();
 protected:
-    virtual int getPrior(char);
-    bool compareOp(char a, char b);
+    virtual int getPrior(const String&);
+    bool compareOp(const String& a, const String& b);
     void slice();
+    void convert();
     String rawExpr;
-    Stack<char> numStack;
-    Stack<char> opStack;
+    Queue<String> calQueue;
+    Stack<String> opStack;
     Queue<String> slicedExpr;
+    Stack<String> calStack;
 };
