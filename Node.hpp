@@ -1,5 +1,5 @@
+#pragma once
 #include <iostream>
-#ifdef SNODE
 template <typename T>
 class Node{
 public:
@@ -22,4 +22,3 @@ std::ostream & operator<<(std::ostream& os, Node<DT>& node){
     "\nData:\t"<<node.data<<std::endl;
     return os;
 }
-#endif

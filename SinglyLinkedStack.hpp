@@ -1,4 +1,3 @@
-#define SNODE
 #include <iostream>
 #include "Node.hpp"
 
