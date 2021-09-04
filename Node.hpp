@@ -1,5 +1,5 @@
+#pragma once
 #include <iostream>
-#ifdef SNODE
 template <typename T>
 class Node{
 public:
@@ -17,9 +17,8 @@ Node<T>::Node(){
 template <typename DT>
 std::ostream & operator<<(std::ostream& os, Node<DT>& node){
     os<<
-    "\nAddr:\t"<<(void*) &node<<
-    "\nNext:\t"<<(void*) node.pNext<<
-    "\nData:\t"<<node.data<<std::endl;
+    //"\nAddr:\t"<<(void*) &node<<
+    //"\nNext:\t"<<(void*) node.pNext<<
+    /*"\nData:*/"\t"<<node.data;//<<std::endl;
     return os;
 }
-#endif

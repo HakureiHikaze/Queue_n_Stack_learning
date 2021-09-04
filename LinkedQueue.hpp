@@ -1,5 +1,4 @@
 #pragma once
-#define SNODE
 #include "Node.hpp"
 
 template <typename T>
@@ -11,23 +10,25 @@ public:
     T Dequeue();
     T GetHead();
     bool isEmpty();
+    template<typename DT>
+    friend std::ostream& operator<<(std::ostream& os, LinkedQueue<DT>& queue);
 private:
     Node<T>* head,* rear;
 };
 
 template<typename T>
-LinkedQueue<T>::LinkedQueue(): head(nullptr), rear(nullptr) {
-
+LinkedQueue<T>::LinkedQueue() {
+    auto* p = new Node<T>();
+    head = rear = p;
 }
 
 template<typename T>
 LinkedQueue<T>::~LinkedQueue() {
     Node<T>* p = head->pNext;
-    do {
-        delete head;
-        head = p;
-        p = p->pNext;
-    } while (rear != head);
+    for(;!(this->isEmpty());){
+        this->Dequeue();
+    }
+    delete head;
 }
 
 template<typename T>
@@ -40,20 +41,34 @@ void LinkedQueue<T>::Enqueue(T data) {
 
 template<typename T>
 T LinkedQueue<T>::Dequeue() {
-    Node<T>* p = head;
-    T rtn = p->data;
-    head = p->pNext;
-    delete p;
-    return rtn;
+        Node<T>* p = head->pNext;
+        T rtn = p->data;
+        head->pNext = p->pNext;
+        if(head->pNext == nullptr) rear = head;
+        delete p;
+        return rtn;
 }
 
 template<typename T>
 T LinkedQueue<T>::GetHead() {
-    return head->data;
+    return head->pNext->data;
 }
 
 template<typename T>
 bool LinkedQueue<T>::isEmpty() {
     if(head == rear) return true;
     else return false;
+}
+
+template<typename DT>
+std::ostream &operator<<(std::ostream &os, LinkedQueue<DT> &queue) {
+    Node<DT>* p = queue.head;
+    os<<"\nHead:\t"<<(void*)p<<std::endl;
+    os<<*p;
+    for(;p->pNext != nullptr;){
+        p = p->pNext;
+        os<<*p;
+    }
+    os<<"\nRear:\t"<<(void*)p<<std::endl;
+    return os;
 }
