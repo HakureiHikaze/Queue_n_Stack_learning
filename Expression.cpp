@@ -91,8 +91,7 @@ Expression::Expression(String str) : rawExpr(std::move(str)) {
 }
 
 void Expression::convert() {
-    opStack.Push("#");
-    for(;!slicedExpr.isEmpty();){
+    for(opStack.Push("#");!slicedExpr.isEmpty();){
         if(std::isdigit(slicedExpr.GetHead()[0]) ||slicedExpr.GetHead()[0] == '.'){
             calQueue.Enqueue(slicedExpr.Dequeue());
         }
@@ -100,20 +99,20 @@ void Expression::convert() {
             opStack.Push(slicedExpr.Dequeue());
         }
         else if(slicedExpr.GetHead() == ")"){
-            for(;opStack.GetTop()!= "(";){
+            while(opStack.GetTop()!= "("){
                 calQueue.Enqueue(opStack.Pop());
             }
             opStack.Pop();
             slicedExpr.Dequeue();
         }
         else{
-            for(;!compareOp(slicedExpr.GetHead(), opStack.GetTop());){
+            while(!compareOp(slicedExpr.GetHead(), opStack.GetTop())){
                 calQueue.Enqueue(opStack.Pop());
             }
             opStack.Push(slicedExpr.Dequeue());
         }
     }
-    for(;opStack.GetTop() != "#";){
+    while(opStack.GetTop() != "#"){
         calQueue.Enqueue(opStack.Pop());
         if(opStack.isEmpty())break;
     }
@@ -126,27 +125,21 @@ double Expression::calculate() {
         }
         else if(std::isalpha(calQueue.GetHead()[0])){
             double a = std::stod(calStack.Pop());
-            if(calQueue.GetHead() == "cos"){
-                calStack.Push(std::to_string(std::cos(a)));
-                calQueue.Dequeue();
-            }
-            else if(calQueue.GetHead() == "sin"){
-                calStack.Push(std::to_string(std::sin(a)));
-                calQueue.Dequeue();
-            }
-            else if(calQueue.GetHead() == "tan"){
-                calStack.Push(std::to_string(std::tan(a)));
-                calQueue.Dequeue();
-            }
+            if(calQueue.GetHead() == "cos")     {calStack.Push(std::to_string(std::cos(a)))  ;calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "sin"){calStack.Push(std::to_string(std::sin(a)))  ;calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "tan"){calStack.Push(std::to_string(std::tan(a)))  ;calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "ln" ){calStack.Push(std::to_string(std::log(a)))  ;calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "log"){calStack.Push(std::to_string(std::log10(a)));calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "exp"){calStack.Push(std::to_string(std::exp(a)))  ;calQueue.Dequeue();}
         }
         else{
             double a = std::stod(calStack.Pop());
             double b = std::stod(calStack.Pop());
-            if(calQueue.GetHead() == "+") { calStack.Push(std::to_string(b + a));calQueue.Dequeue(); }
-            else if(calQueue.GetHead() == "-") { calStack.Push(std::to_string(b - a));calQueue.Dequeue(); }
-            else if(calQueue.GetHead() == "*") { calStack.Push(std::to_string(b * a));calQueue.Dequeue(); }
-            else if(calQueue.GetHead() == "/") { calStack.Push(std::to_string(b / a));calQueue.Dequeue(); }
-            else if(calQueue.GetHead() == "^") { calStack.Push(std::to_string(std::pow(b, a)));calQueue.Dequeue(); }
+            if(calQueue.GetHead() == "+")      {calStack.Push(std::to_string(b + a))     ;calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "-") {calStack.Push(std::to_string(b - a))     ;calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "*") {calStack.Push(std::to_string(b * a))     ;calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "/") {calStack.Push(std::to_string(b / a))     ;calQueue.Dequeue();}
+            else if(calQueue.GetHead() == "^") {calStack.Push(std::to_string(std::pow(b, a)));calQueue.Dequeue();}
         }
     }
     return std::stod(calStack.Pop());
